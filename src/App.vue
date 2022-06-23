@@ -1,28 +1,63 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="container">
+      <div class="title">
+        <h1>Users</h1>
+      </div>
+      <div class="table-section">
+        <div class="d-flex justify-content-end mb-4">
+          <CreateUserModal @pushToArray="showNewUser($event)"/>
+        </div>
+        <UsersTable :rows="rows" :headers="headers"/>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import {headers} from "@/utils/headers";
+import {fetchUsers} from "@/utils/fetchUsers";
+import UsersTable from "@/components/UsersTable";
+import CreateUserModal from "@/components/CreateUserModal";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    CreateUserModal,
+    UsersTable
+  },
+  async mounted() {
+    this.rows = await fetchUsers()
+  },
+  data() {
+    return {
+      headers,
+      rows: [],
+      showModal: false
+    }
+  },
+  methods: {
+    showNewUser(event) {
+      this.rows.push(event)
+    }
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.table-section {
+  margin-top: 7rem;
+}
+
+.title {
+  text-align: center;
 }
 </style>
