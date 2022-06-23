@@ -8,7 +8,8 @@
         <div class="d-flex justify-content-end mb-4">
           <CreateUserModal @pushToArray="showNewUser($event)"/>
         </div>
-        <UsersTable :rows="rows" :headers="headers"/>
+        <UsersTable @editedUser="editedUser($event)" @deleteUser="deleteSpecificUser($event)" :rows="rows"
+                    :headers="headers"/>
       </div>
     </div>
   </div>
@@ -18,7 +19,7 @@
 import {headers} from "@/utils/headers";
 import {fetchUsers} from "@/utils/fetchUsers";
 import UsersTable from "@/components/UsersTable";
-import CreateUserModal from "@/components/CreateUserModal";
+import CreateUserModal from "@/components/create/CreateUserModal";
 
 export default {
   name: 'App',
@@ -39,6 +40,12 @@ export default {
   methods: {
     showNewUser(event) {
       this.rows.push(event)
+    },
+    deleteSpecificUser(event) {
+      this.rows = this.rows.filter(item => item.id !== event)
+    },
+    editedUser(event) {
+      this.rows = this.rows.map(item => item.id === event.id ? {...event} : {...item})
     }
   }
 }

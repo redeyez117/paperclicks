@@ -24,7 +24,7 @@
 
 <script>
 
-import CreateUserForm from "@/components/CreateUserForm";
+import CreateUserForm from "@/components/create/CreateUserForm";
 import { Modal } from 'bootstrap'
 export default {
   name: "CreateUserModal",

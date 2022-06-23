@@ -1,5 +1,5 @@
 <template>
-  <div class="form-group my-2">
+  <div class="base-element">
     <div class="d-flex justify-content-between align-items-center">
       <label v-if="label" :for="id" class="label font-bold mb-1">
         {{ label }}
@@ -12,6 +12,7 @@
         @input="updateInput"
         class="form-control"
         :placeholder="placeholder"
+        :name="name"
     />
   </div>
 </template>
@@ -39,7 +40,12 @@ export default {
     placeholder: {
       type: String,
       default: "text"
-    }
+    },
+    name: {
+      type: String,
+      default: "text"
+    },
+
   },
   methods: {
     updateInput(event) {
@@ -74,5 +80,9 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.base-element {
+  margin-block: 10px;
 }
 </style>
